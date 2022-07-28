@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="eParticipationDB">
+		<jta-data-source>java:/eParticipationDB</jta-data-source>		
+		
+		<class>eParticipation.backend.model.UsuarioFrontOffice</class>   
+		<class>eParticipation.backend.model.Funcionario</class>  
+		<class>eParticipation.backend.model.Ciudadano</class>  
+		<class>eParticipation.backend.model.Administrador</class>  
+		<class>eParticipation.backend.model.Autoridad</class>  	 
+		<class>eParticipation.backend.model.Organismo</class>  	 
+		<class>eParticipation.backend.model.Organizacion</class>				
+		<class>eParticipation.backend.model.Certificado</class>  
+		<class>eParticipation.backend.model.TipoCertificado</class> 
+		<class>eParticipation.backend.model.TipoInsignia</class>	
+		<class>eParticipation.backend.model.CfgNoti</class>	
+		<class>eParticipation.backend.model.Iniciativa</class>	
+		<class>eParticipation.backend.model.ProcesoParticipativo</class>
+		<class>eParticipation.backend.model.Alcance</class>
+		<class>eParticipation.backend.model.Evaluador</class>
+		<class>eParticipation.backend.model.NodosPerifericos</class>	
+				
+		<properties>
+			<property name="hibernate.default_schema" value="laboratorio"/>		
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+			<property name="javax.persistence.schema-generation.database.action" value="none"/>
+		</properties>
+			
+	</persistence-unit>
+	
+</persistence>

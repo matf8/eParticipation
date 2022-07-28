@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" 
+xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+	 	<title>e-Participation.UY - Evaluacion de iniciativas</title>	
+	 	<h:head>
+	 		<f:event type="preRenderView" listener="#{cp.verificarSesion()}"/>		 			
+	 	 	<link rel="stylesheet" type="text/css" href="resources/css/style.css" />	 		  
+		</h:head> 	
+	</h:head>	
+	
+	<h:body styleClass="imgBack">
+		<p:messages id="msgs" closable="true"/>				
+	    <p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 4500)" />
+	      				
+		<p:panel style="height: auto; width: auto">		
+						
+				<p:panel id="pge1" header="Evaluar iniciativa" style="width: 50%; padding: 0.5em 2rem; float: left">
+				  <h:form id="frmIniciativas">		
+					<p:outputLabel> Usted ha elegido la iniciativa #{cpr.di.nombre} </p:outputLabel>
+					<br/> <br/>
+					<h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        	<p:inputText id="nombre" value="#{cpr.di.nombre}" readonly="#{facesContext.currentPhaseId.ordinal eq 6}"/>        			
+			        	<p:outputLabel for="@previous" value="Nombre"/>
+			        </h:panelGroup> 
+					<h:panelGroup class="ui-float-label" style="margin-top: 20px;">
+		        		<p:inputText id="fecha" value="#{cpr.di.fecha}" readonly="#{facesContext.currentPhaseId.ordinal eq 6}"/>        			
+		        		<p:outputLabel for="@previous" value="Fecha"/>
+			        </h:panelGroup> 
+			        <h:panelGroup class="ui-float-label" style="margin-top: 20px;">
+		        		<p:inputText id="desc" value="#{cpr.di.descripcion}" readonly="#{facesContext.currentPhaseId.ordinal eq 6}"/>        			
+		        		<p:outputLabel for="@previous" value="Descripcion"/>
+			        </h:panelGroup> 
+			        <h:panelGroup class="ui-float-label" style="margin-top: 20px;">
+		        		<p:inputText id="estado" value="#{cpr.di.estado}" readonly="#{facesContext.currentPhaseId.ordinal eq 6}"/>        			
+		        		<p:outputLabel for="@previous" value="Estado"/>
+			        </h:panelGroup> 
+			        <h:panelGroup class="ui-float-label" style="margin-top: 20px;">
+		        		<p:inputText id="creador" value="#{cpr.di.creador}" readonly="#{facesContext.currentPhaseId.ordinal eq 6}"/>        			
+		        		<p:outputLabel for="@previous" value="Creador"/>
+			        </h:panelGroup> 
+			        
+					<p:commandButton value="Volver" style="margin-top: 20px" action="#{cr.redirectProcesar()}" icon="pi pi-fw pi-arrow-left"/>
+					<p:commandButton value="Evaluar" update="msgs" style="margin-left: 15px; margin-top: 20px" action="#{cpr.evaluarIniciativa()}" icon="pi pi-arrow-circle-right"/>
+			  	</h:form>
+			  </p:panel>
+			  
+			  <p:panel id="pge2" header="Nodos" style="width: 50%; padding: 0.5em 2rem; float: left">
+				<h:form id="frmNodos">		
+					 <h:panelGroup class="ui-float-label" style="margin-top: 20px; height: 105px; width: 190px;">
+		        		 <span style="margin-bottom: 15px"> Nodos disponibles </span>		        		
+		        		 <p:selectOneMenu id="nodos" value="#{cpr.nodo}">
+					        <f:selectItems value="#{cpr.urisEvaluador}"/>
+					        <f:ajax event="change" render="@form"/>							        
+						 </p:selectOneMenu>								 			        		
+		        	</h:panelGroup>			
+					
+				
+			   </h:form>
+			  </p:panel>
+			
+			
+			
+			
+			<div style="clear: both"/>						
+		</p:panel>
+	</h:body>
+</html>

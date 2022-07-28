@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">eParticipation</string>
+    <string name="button_login">Ingresar</string>
+    <string name="title_login">Inicio de sesion</string>
+    <string name="button_drawer_home">Inicio</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Abrir drawer</string>
+    <string name="navigation_drawer_close">Cerrar drawer</string>
+    <string name="nav_header_title">Mauricio</string>
+    <string name="nav_header_desc">Ciudadano</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="menu_home">Inicio</string>
+    <string name="menu_gallery">Galeria</string>
+    <string name="menu_slideshow">Slide</string>
+    <string name="nav_header_subtitle">Ciudadano</string>
+    <string name="espacios_cercanos">Espacios cercanos</string>
+    <string name="grupo">Grupo 18</string>
+    <string name="iniciativa_activity">Espacio</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_second">Programa de participacion ciudadana</string>
+    <string name="imagen_espacios">Imagen espacios</string>
+    <string name="espacios_text_second">Espacios</string>
+    <string name="imagen_perfil_second">Imagen perfil</string>
+    <string name="imagen_certificado_second">Imagen certificado</string>
+    <string name="perfil_text_second">Perfil</string>
+    <string name="certificado_text_second">Certificado</string>
+    <string name="imagen_platform_second">Imagen platform</string>
+    <string name="title_secondActivity">eParticipation</string>
+</resources>

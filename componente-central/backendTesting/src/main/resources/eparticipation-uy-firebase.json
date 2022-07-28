@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "eparticipation-uy",
+  "private_key_id": "b2fb1ac0ae797819e6b2385412e7170edaa29f28",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDQSp7sFPL477xD\nis8qeRCi21Dtg8+FimvBta8bBYNZ/YkLIuvz2QwoAMZ1maWQZI6jsnG4doKfyvM8\noUVpisE89Ug/TNa0qjVlgIdibKO+sqtejjEwt/sYozThE+LW/6r1OaavCO/NCfEq\nMZ8hO0djw3sxrzWyDrUA+cFGFeRinYME3zjWziLKaVcKzBLp5YKEaj172YTLd/A8\nIfJxVQdJIHGnUyl9/EPFUWVNUWzdqiEomLCYP9KESv0jlqOX3WoV1CokzayeESzN\n3z7tuBS67/DRmqTLQgk5R7rMDiNlkG9lOa2nf1sNWwpWzJwph2Yh6DKflN2qKmzg\nUK+8oP4RAgMBAAECggEAWyzm3wGWkAhk2Q34fCeNdDRbevSRUOvUGnGcqk/h/PDh\n3cmWDmIqk5IvTUgJ9KhH1fklFXFu4WKV0arodvgheT0HOIo6i8/b2sgFuzxB+xY7\ntIK6npBSbij22zV4vNMicwCe6YyYZ6Db+7PH6+SGbfGiSg/ficctTTWGeFbZ554v\nx1REFcgArjVhvzZL7xFNeEk26DI4NyN+PiHEbl0Yq3trNnVWFoQkwtEwU6uFY83S\n6JrLHSzNWOw87p628oP950bwPeW/EgBSeAIetqxUqbO09mPMtqy3ze+GnPJ1FqB3\nxC28zXtl5ovdoEoMNiE6pQ9ka5ShtaqBVXxoDti9LwKBgQDz1d3ASrhFPDbaauRP\nRUpsot0eJkTIqjnYWZT2aOsdWk5h6AcoXtW+mYB0A/UHdBK8mcCqNdUlQHh3IDXT\nYQ54qO8vSLaTMr+cBKiQOQFX+/EX/+pbcOrWtvA9IWYxT6mgMXyxKdyHEYeWMVs6\nvgWRAldvqkFdtshm9bml1+JenwKBgQDars6KE9ZOcGDBwGjhcMrbwWSUgP+UZxCG\ndmPuJFKPX77NZVTqEYkEntbabNj5v7+NXxK+5qraC/fFwuFnaDcaDYOvI4QZQ+qx\nYIT375+gUbZExfS9W3zoxDIxkvZ9/caXVWu+okQoNgLK6jktxIkTfkXbFXpcMe+7\ncqFgXMVVTwKBgQDh81rL5/Gd5tCF0evDMVhoFvuEBr5SnLuBqnGJbWwCBT8BJvwL\nAuZa+u+3kjsrLvp13pxUnhHntThsW2LFf/jjAtiyHlVhTfOU5hQ1oT2HhKXDMZjA\nJ4DWeytf2mVSaJmtIm6D1WDPoQTdvtrlMlUCLQNNLJ3p84j9L9NaxRS1zQKBgQCJ\nHJ9tXaC6D6Xq9XwNFc5rWOd6YSNeZfyrgiGH2AhX0t1sJQPHuvThC8KEs0ib1wkA\nV8MGJNSs4GIbAeSYFHSwBhcxwZ/6w2Wsj2rvlbPNLk6M8l1QOMOpohIimRWpy2sv\nyaRDo7P+TlcT6SWut5KGwV6FTgMpOTopmmbqZ2Bm6wKBgQDupHXu4d/Uj4Z/bhHK\npmSIFfyw9iE2UwUiQRAi6e9M+V8u2jNDWDIcELKQJbrs7J9cmA6WWRxckGGWkKZd\nIBjO3nrZUTVDzB3kmv3mZHd0pMWq6GczlU1qB6xnXIyojFRWgBpMyGgHfIRxTgSw\nb9Iexo0wbqmLPM3aD67UdrGxyg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-6qcb7@eparticipation-uy.iam.gserviceaccount.com",
+  "client_id": "106952545150456412274",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-6qcb7%40eparticipation-uy.iam.gserviceaccount.com"
+}

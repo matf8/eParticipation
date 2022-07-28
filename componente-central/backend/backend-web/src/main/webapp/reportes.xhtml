@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" 
+xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+	 	<title>e-Participation.UY - Reportes</title>	
+	 	<h:head>
+	 		<f:event type="preRenderView" listener="#{cp.verificarSesion()}"/>		
+	 		<link rel="stylesheet" type="text/css" href="resources/css/style.css" />	 		  
+		</h:head> 	
+	</h:head>		
+	<h:body styleClass="imgBack" scroll="false" style="overflow: hidden">	
+		
+		<h:form>	
+			<div id="cont">					
+				<p:panel header="Bienvenido al panel general de eParticipation.uy">					
+					<h2 style="text-align: left"> <b>  Dashboard - Autoridades </b>  </h2>					 
+					<p:commandButton style="margin: 2rem; float: left" value="Volver" action="#{cr.redirectIndex()}" icon="pi pi-fw pi-arrow-left" styleClass="ui-button-secondary"/>			
+					<p:chart type="pie" model="#{metrics.pieModelUsuarios}" style="width:600px; height:400px; float: left;" />							
+					<p:chart type="bar" model="#{metrics.barModelEspaciosParticipativos}" style="margin-left: 105px; width:600px; height: 300px; float: left;"/>				
+					<p:chart type="bar" model="#{metrics.lineModelInteracciones}" style="margin-left: 105px; margin-top: 20px; width:600px; height: 300px; float: left;"/>						
+					
+					<h4 style="color: white; font-family: 'Maven Pro', cursive"> Exportar </h4>	
+					<p:commandButton value="PDF" styleClass="ui-button-outlined ui-button-success" icon="pi pi-file-pdf">					
+						<p:dataExporter type="pdf" target="rep" fileName="Reporte eParticipation 2022" />
+					</p:commandButton>						
+					<p:commandButton style="margin-left: 2em" value="CSV" styleClass="ui-button-outlined ui-button-success" icon="pi pi-file-excel">					
+						<p:dataExporter type="xls" target="rep" fileName="Reporte eParticipation 2022" />
+					</p:commandButton>				
+					<div style="clear: both"/>			
+				</p:panel>		
+																		
+				<p:dataTable style="visibility: hidden;" id="rep" value="#{metrics.est}" var="rep">						
+					<p:column>
+						<f:facet name="header">Administradores</f:facet>
+							<p:outputLabel value="#{rep.cantAdministradores}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Autoridades</f:facet>
+							<p:outputLabel value="#{rep.cantAutoridades}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Funcionarios</f:facet>
+							<p:outputLabel value="#{rep.cantFuncionarios}"/>					
+					</p:column>
+					<p:column>
+						<f:facet name="header">Ciudadanos</f:facet>
+							<p:outputLabel value="#{rep.cantCiudadanos}"/>		
+					</p:column>
+					<p:column>
+						<f:facet name="header">Total Usuarios</f:facet>
+							<p:outputLabel value="#{rep.cantAdministradores + rep.cantAutoridades + rep.cantCiudadanos + rep.cantFuncionarios}"/>
+					</p:column>												
+					<p:column>
+						<f:facet name="header">Proceso participativos</f:facet>
+							<p:outputLabel value="#{rep.cantProcesos}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Iniciativas</f:facet>
+							<p:outputLabel value="#{rep.cantIniciativas}"/>
+					</p:column>				
+					<p:column>
+						<f:facet name="header">Total espacios participativos</f:facet>
+							<p:outputLabel value="#{rep.cantProcesos + rep.cantIniciativas}"/>
+					</p:column>					
+					<p:column>
+						<f:facet name="header">Adhesiones</f:facet>
+							<p:outputLabel value="#{rep.cantAdhesiones}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Seguidores</f:facet>
+							<p:outputLabel value="#{rep.cantSeguidores}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Comentarios</f:facet>
+							<p:outputLabel value="#{rep.cantComentarios}"/>
+					</p:column>
+				</p:dataTable>					
+			</div>
+		</h:form>	
+	</h:body>	
+</html>

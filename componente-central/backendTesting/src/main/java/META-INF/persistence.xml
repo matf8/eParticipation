@@ -1,0 +1,39 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	<persistence-unit name="eParticipationDBTesting" transaction-type="RESOURCE_LOCAL">
+	
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>eParticipation.backend.model.UsuarioFrontOffice</class>   
+		<class>eParticipation.backend.model.Funcionario</class>  
+		<class>eParticipation.backend.model.Ciudadano</class>  
+		<class>eParticipation.backend.model.Administrador</class>  
+		<class>eParticipation.backend.model.Autoridad</class>  	 
+		<class>eParticipation.backend.model.Organismo</class>  	 
+		<class>eParticipation.backend.model.Organizacion</class>	
+		<class>eParticipation.backend.model.Evaluador</class>					
+		<class>eParticipation.backend.model.Certificado</class>  
+		<class>eParticipation.backend.model.TipoInsignia</class>	
+		<class>eParticipation.backend.model.CfgNoti</class>	
+		<class>eParticipation.backend.model.Iniciativa</class>	
+		<class>eParticipation.backend.model.ProcesoParticipativo</class>
+		<class>eParticipation.backend.model.Alcance</class>
+		<!-- <class>eParticipation.backend.model.FaseProceso</class> -->
+		
+				
+		<properties>
+			<property name="hibernate.default_schema" value="laboratoriotesting"/>		
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>	
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/eParticipationDB" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.user" value="user_tse" />
+			<property name="javax.persistence.jdbc.password" value="tse22" />
+			<property name="hibernate.show_sql" value="false"/>
+			
+		
+		</properties>
+			
+	</persistence-unit>
+</persistence>

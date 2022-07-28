@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es" 
+xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>	
+	 	<title>e-Participation.UY - Inicio</title> 		  
+	</h:head>			  	
+	<h:body styleClass="imgBack" scroll="no" style="overflow: hidden"> 
+		<link rel="stylesheet" type="text/css" href="resources/css/style.css" />		
+		<h:form id="f2">
+			<p:messages id="msgs" closable="true"/>		
+			<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 4500)" />
+     	    <p:menubar id="mb1">
+	            <p:submenu label="Ayuda" icon="pi pi-fw pi-envelope">	            	                
+	                <p:menuitem value="Helpdesk" icon="pi pi-fw pi-user" onclick="PF('help').show();"/>
+	                <p:divider />
+	                <p:menuitem value="Acerca de nosotros" onclick="PF('aboutUs').show();" icon="pi pi-fw pi-question-circle"/>
+	           </p:submenu>
+                
+	           <p:divider layout="vertical"/>               
+	           		
+	           <f:facet name="options">     
+	          	 	<p:commandButton action="#{cp.redirectPerfil()}" rendered="#{!cl.logRender}" icon="pi pi-user" styleClass="rounded-button ui-button-info" style="margin-right: 15px"/>                
+	               <!-- <div class="ui-input-icon-left p-mr-2">
+	                     <i class="pi pi-fw pi-search"/> 
+	                    <p:inputText placeholder="Search" style="margin-right: 15px"/>
+	                </div> -->
+	                <p:commandButton value="Log-in" rendered="#{cl.logRender}" onclick="PF('sidebarLogin').show()" icon="pi pi-fw pi-sign-in" styleClass="ui-button-secondary"/>                
+	                <p:commandButton value="Logout" rendered="#{!cl.logRender}" actionListener="#{cl.logoff()}" update="f2, pg1" icon="pi pi-fw pi-sign-out" styleClass="ui-button-secondary"/>	                		        	
+	           </f:facet>               
+			</p:menubar>   
+			
+			<p:dialog header="Soporte" widgetVar="help" minHeight="100" minWidth="200" style="text-alig: center" draggable="false" resizable="false"> 				
+				mathias.fernandez.bo@fing.edu.uy			
+			</p:dialog>
+			
+			<p:dialog header="#MMM" widgetVar="aboutUs" minHeight="100" minWidth="200" style="text-alig: center" draggable="false" resizable="false">				
+				Mathias Fernández <br/>
+				Manuel Biurrun <br/>
+				Mauricio Iglesias <br/>				
+			</p:dialog>			              			  
+		</h:form>   
+   
+	   <h:form id="f3">   	
+	   		<p:sidebar widgetVar="sidebarLogin" position="top"> 
+	          	<span class="ui-float-label" style="height: 35px; width: 20px;">
+	        		<p:inputText id="user" value="#{cl.user}" required="true"/>        			
+	        		<p:outputLabel for="@previous" value="Cédula"/>
+	        	</span>  	
+	            <br/>
+				<span class="ui-float-label" style="height: 35px; width: 20px;">
+				    <p:password  id="pass" value="#{cl.pass}" required="true"/>				    	
+				    <p:outputLabel for="@previous" value="Contraseña"/>
+				</span> 	
+				
+				<p:commandButton actionListener="#{cl.login()}" update="f3, f2, pg1" value="Ingresar" icon="pi pi-fw pi-sign-in" styleClass="ui-button-info" style="margin-left: 15rem; margin-bottom: -5px;">
+					<p:hotkey bind="return" update="f3, f2" actionListener="#{cl.login()}" />  
+	            </p:commandButton>                                       
+			</p:sidebar>			
+	   </h:form>		
+		
+		<h:panelGroup id="pg1">	
+				
+		<!--  autoridad  -->		
+			<p:panel id="p2" header="Procesamiento de iniciativas" rendered="#{cl.perfil eq 'aut'}" style="width: 50%; padding: 0.5em 2rem; float: left">
+				<p:commandButton style="margin: 2rem" value="Ingresar" update="p2" action="#{cr.redirectProcesar()}"/>	 		
+			</p:panel>			 	
+				
+			 <p:panel id="p3" header="Reportes de espacios participativos" rendered="#{cl.perfil eq 'aut'}" style="width: 50%; padding: 0.5em 2rem; float: left">		 	
+				<p:commandButton style="margin: 2rem" value="Dashboard"  update="p3" action="#{cr.redirectReportes()}"/>	 
+			</p:panel>			 	
+			
+		<!--  admin  -->		
+			<p:panel id="p4" header="Gestionar usuarios y roles" rendered="#{cl.perfil eq 'adm'}" style="width: 50%; padding: 0.5em 2rem; float: left">		 	
+				<p:commandButton style="margin: 2rem" value="Crear usuario" update="p4" action="#{cr.redirectAltas()}"/>	
+				<p:commandButton style="margin: 2rem" value="Buscar usuario" update="p4" action="#{cr.redirectBusqueda()}"/>	
+				<h:outputLabel value="#{starting.bienvenida}" rendered="#{starting.showin}" />		 
+	   		</p:panel>	
+	   		
+	   		<p:panel id="p5" header="Gestionar nodos perifericos" rendered="#{cl.perfil eq 'adm'}" style="width: 50%; padding: 0.5em 2rem; float: left">		 	
+				<p:commandButton style="margin: 2rem" value="Organizaciones" action="#{cgp.redirectGestorNodosPOrg()}"/>	 
+				<p:commandButton style="margin-left: 2rem" value="Evaluadores" action="#{cgp.redirectGestorNodosPEv()}"/>	 
+	   		</p:panel>	
+	   		
+	  <!--  <p:panel id="p6" header="Gestionar tipos de instrumentos" rendered="#{cl.perfil eq 'adm'}" style="width: 50%; padding: 0.5em 2rem; float: left">		 	
+				<p:commandButton style="margin: 2rem" value="Hola" update="p6" actionListener="#{starting.toggleShow()}"/>	 
+				<h:outputLabel value="#{starting.bienvenida}" rendered="#{starting.showin}" />		 
+	   		</p:panel>	 -->	   		
+	   		
+	   		<p:panel id="p7" header="Gestionar insignias" rendered="#{cl.perfil eq 'adm'}" style="width: 50%; padding: 0.5em 2rem; float: left">		 	
+				<p:commandButton style="margin: 2rem" value="Visor" update="p7" action="#{cr.redirectInsigniaVisor()}"/>	 
+				<p:commandButton style="margin: 2rem" value="Gestor" update="p7" action="#{cr.redirectInsigniaGestor()}"/>	 
+								
+	   		</p:panel>	
+	   		
+	   		<div style="clear: both"></div>
+	   		
+	   		<div style="height: auto; position: relative">
+				<p:panel id="p1" header="Bienvenido a eParticipation backoffice" rendered="#{cl.perfil eq 'pub'}" style="width: 35%; padding: 0.5em 2rem; position: absolute; height: auto; top: 0; bottom: 0; margin:auto; left:50%; margin-left: -300px; margin-top: 10px">
+			 		<h:outputLabel value="Inicie sesión para empezar"/>		 
+				</p:panel>	
+			</div>
+		 	
+	   </h:panelGroup>
+	   
+			
+			<div id="footer">
+				<p> Copyright © 2022 #MMM</p>
+			</div>
+			   
+	</h:body>
+</html>

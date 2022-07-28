@@ -1,0 +1,73 @@
+<web-app version="4.0"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+    http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+
+	<display-name>backend-web</display-name>
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
+			
+	<display-name>backend-web</display-name>
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
+	
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>	 
+		 
+    <context-param>    
+  		<param-name>primefaces.THEME</param-name>
+  		<param-value>arya</param-value>
+    </context-param>     
+	
+	<env-entry>
+		<env-entry-name>authGubUy</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>https://auth-testing.iduruguay.gub.uy/oidc/v1/authorize</env-entry-value>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>tokenGubUy</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>https://auth-testing.iduruguay.gub.uy/oidc/v1/token</env-entry-value>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>userGubUy</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>https://auth-testing.iduruguay.gub.uy/oidc/v1/userinfo</env-entry-value>
+	</env-entry>		
+	<env-entry>
+		<env-entry-name>scope</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>openid document</env-entry-value>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>response_type</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>code</env-entry-value>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>clientId</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>890192</env-entry-value>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>clientSecret</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>457d52f181bf11804a3365b49ae4d29a2e03bbabe74997a2f510b179</env-entry-value>
+	</env-entry>	
+	<env-entry>
+		<env-entry-name>redirect_uri</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>https://we-participation.web.elasticloud.uy/loginGubUy</env-entry-value>		
+	</env-entry>
+    
+</web-app>

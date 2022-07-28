@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es" 
+xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+	 	<title>e-Participation.UY - Gestión de usuarios</title>	
+	 	<h:head>
+	 		<f:event type="preRenderView" listener="#{cp.verificarSesion()}"/>		
+	 	 	<link rel="stylesheet" type="text/css" href="resources/css/style.css" />	 		  
+		</h:head> 	
+	</h:head>		
+	<h:body styleClass="imgBack">
+	
+		<p:messages id="msgs" closable="true"/>				
+	    <p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 4500)" />
+	      				
+		<p:panel style="height: auto; width: auto">		
+	
+			<p:panel id="pgu1" header="Creacion de usuarios" rendered="#{cr.abm eq 'a'}" style="width: 30%; padding: 0.5em 2rem; float: left">		 	
+			<h:form>
+				<h3> Que tipo de usuario quiere crear? </h3>
+				<p:selectOneMenu id="roles" value="#{cu.rol}"
+                                hideNoSelectionOption="#{not empty cu.rol}">
+                    <p:ajax update="pgCrear, pgCrear2, pgCrear3, pListar2, @form" process="@this"/>
+                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                    <f:selectItem itemLabel="Autoridad" itemValue="Autoridad"/>
+                    <f:selectItem itemLabel="Funcionario" itemValue="Funcionario"/>  
+                    <f:selectItem itemLabel="Ciudadano" itemValue="Ciudadano"/>     
+                    <f:selectItem itemLabel="Organismo" itemValue="Organismo"/>               
+                </p:selectOneMenu>
+				
+				<br/>
+				<p:commandButton value="Volver" action="#{cu.redirectIndex()}" icon="pi pi-fw pi-arrow-left" style="margin-top: 10px"/>
+			</h:form>			
+			</p:panel>
+			
+			<h:panelGroup id="pgCrear">			
+				<p:panel id="pgu2" header="Datos del usuario" rendered="#{cu.rol != 'Funcionario' and not empty cu.rol and cu.rol != 'Organismo'}" style="width: 18%; padding: 0.5em 2rem; float: left">		 	
+					<h:form>
+						<h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:inputText id="nombre" value="#{cu.nombre}"/>        			
+			        		<p:outputLabel for="@previous" value="Nombre Usuario"/>
+				        </h:panelGroup> 
+						<h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:inputText id="cedula" value="#{cu.cedula}"/>        			
+			        		<p:outputLabel for="@previous" value="Cedula Usuario"/>
+				        </h:panelGroup> 
+				        <h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:inputText id="mail" value="#{cu.correo}"/>        			
+			        		<p:outputLabel for="@previous" value="Mail Usuario"/>
+				        </h:panelGroup> 
+				        <h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:password  id="pass" value="#{cu.password}"/>        			
+			        		<p:outputLabel for="@previous" value="Contraseña Usuario"/>
+				        </h:panelGroup>				        			        
+				        <p:commandButton value="Crear" update="@form, msgs, pgCrear" actionListener="#{cu.crearUsuario()}" icon="pi pi-fw pi-plus" style="margin-top: 10px"/>
+				        
+				   </h:form> 
+				</p:panel>
+			</h:panelGroup>
+			
+			<h:panelGroup id="pgCrear3">			
+				<p:panel id="pgu7" header="Datos del usuario" rendered="#{cu.rol == 'Funcionario' and not empty cu.rol and cu.rol != 'Organismo'}" style="width: 18%; padding: 0.5em 2rem; float: left">		 	
+					<h:form>
+						<h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:inputText id="nombre" value="#{cu.nombre}"/>        			
+			        		<p:outputLabel for="@previous" value="Nombre Usuario"/>
+				        </h:panelGroup> 
+						<h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:inputText id="cedula" required="true" requiredMessage="Ingrese cedula" value="#{cu.cedula}"/>        			
+			        		<p:outputLabel for="@previous" value="Cedula Usuario"/>
+				        </h:panelGroup> 
+				        <h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:inputText id="mail" value="#{cu.correo}"/>        			
+			        		<p:outputLabel for="@previous" value="Mail Usuario"/>
+				        </h:panelGroup> 
+				         <h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:password  id="pass" required="true" requiredMessage="Ingrese password" value="#{cu.password}"/>        			
+			        		<p:outputLabel for="@previous" value="Contraseña Usuario"/>
+				        </h:panelGroup>
+				        <h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:inputText  id="org" value="#{cu.organismo}"/>        			
+			        		<p:outputLabel for="@previous" value="Organismo en el que trabaja"/>
+				        </h:panelGroup>		
+				        <h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:inputText  id="cargoOrg" value="#{cu.cargo}"/>        			
+			        		<p:outputLabel for="@previous" value="Cargo en el que trabaja"/>
+				        </h:panelGroup>			        
+				        <p:commandButton value="Crear" update="@form, msgs, pgCrear3" actionListener="#{cu.crearUsuario()}" icon="pi pi-fw pi-plus" style="margin-top: 10px"/>	        
+				   </h:form> 
+				</p:panel>
+			</h:panelGroup>
+			
+			<h:panelGroup id="pgCrear2">
+				<p:panel id="pgu6" header="Datos del Organismo" rendered="#{cu.rol == 'Organismo'}" style="width: 18%; padding: 0.5em 2rem; float: left">		 	
+					<h:form>						
+						<h:panelGroup class="ui-float-label" style="margin-top: 20px;">			        	
+			        		<p:inputText id="nombre" required="true" requiredMessage="Ingrese nombre" value="#{cu.nombre}"/>        			
+			        		<p:outputLabel for="@previous" value="Nombre Usuario"/>
+				        </h:panelGroup> 
+						<h:panelGroup class="ui-float-label" style="margin-top: 20px;">
+			        		<p:inputText id="depart" value="#{cu.departamento}"/>        			
+			        		<p:outputLabel for="@previous" value="Departamento"/>
+				        </h:panelGroup>      
+				        <p:commandButton value="Crear" update="@form, msgs, pgCrear2, pListar2" actionListener="#{cu.crearOrganismo()}" icon="pi pi-fw pi-plus" style="margin-left: -13px; margin-top: 30px; float: left"/>
+				   </h:form> 						
+		  		   <p:commandButton value="Listar" update="msgs, pListar2" actionListener="#{cu.listarOrganismo()}" icon="pi pi-fw pi-user" style="margin-top: 30px; margin-left: 10px; float: left"/>
+			   </p:panel>
+			   <div style="clear: both"></div>	
+				
+			</h:panelGroup>
+			
+			<h:panelGroup id="pListar2">
+				<p:panel id="pgu8" header="Lista de organismos" rendered="#{cu.renderListaOrg and cu.rol == 'Organismo'}" style="width: 50%; border-spacing: 2px; padding: 1.5em 2rem; margin-top: 2px;">		 	
+					<h:form>
+						<h2>Organismos</h2>     		
+			  			<p:separator/>	
+						<p:dataTable value="#{cu.lorg}" var="o" border="2" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+				       		<p:column headerText="nombre">
+				    	  	 	<h:outputText value="#{o.nombre}" />
+				 	    	</p:column>	
+				       		<p:column headerText="departamento">
+				    	  	 	<h:outputText value="#{o.departamento}" />
+				 	    	</p:column>
+				 	    	<p:column headerText="empleados">
+				    	  	 	<h:outputText value="#{o.empleados}" />					 	    	
+				    	  	 	<p:commandButton id="cmBO" action="#{cu.borrarOrganismo()}" update="@form, pgu8, pListar2, msgs" style="float: right" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined">
+							    	<f:setPropertyActionListener value="#{o.nombre}" target="#{cu.delO}"/>
+							         <p:tooltip id="tpBO" widgetVar="bO" for="cmBO" showDelay="200" value="ATENCIÓN: Borrar organismo implicará borrar los funcionarios que trabajan en el." />			        	
+							    	
+							    </p:commandButton>
+				 	    	</p:column>				 	    		    	
+				       </p:dataTable>
+				    </h:form> 							
+				</p:panel>
+			</h:panelGroup>
+			
+						
+			<p:panel id="pgu5" header="Busqueda de usuarios" rendered="#{cr.abm eq 'b'}" style="width: 50%; padding: 0.5em 2rem; float: left">		 	
+				<h:form>
+					<h3> Por correo  </h3>						
+					<p:separator/>	
+										
+					<h:panelGroup class="ui-float-label" style="margin-top: 40px;">
+		        		<p:inputText id="correo" value="#{cu.correo}"/>        			
+		        		<p:outputLabel for="@previous" value="Correo Usuario"/>		        		
+			        </h:panelGroup> 	        			        
+			        
+			      	<p:commandButton value="Buscar" update="@form, psearch, msgs" actionListener="#{cu.buscarUsuario()}" icon="pi pi-fw pi-search" style="margin-top: 20px"/>
+			      	<p:commandButton value="Listar" update="@form, plist" actionListener="#{cu.listarUsuario()}" icon="pi pi-fw pi-user" style="margin-top: 10px; margin-left: 20px"/>
+					<p:commandButton value="Volver" action="#{cu.redirectIndex()}" icon="pi pi-fw pi-arrow-left" style="margin-left: 20px"/>										
+				</h:form>		
+			</p:panel>			
+			<br/>						
+			<h:panelGroup id="psearch">
+				<h:form>
+					<p:panel id="pgu4" header="Usuarios de eParticipation.uy" rendered="#{cu.renderSearch}" style="width: 25%; border-spacing: 2px; padding: 0.5em 2rem; float: left">		 			
+			  			<h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:inputText id="nombre" value="#{cu.user.nombreCompleto}"/>        			
+			        		<p:outputLabel for="@previous" value="Nombre Usuario"/>
+				        </h:panelGroup> 
+						<h:panelGroup class="ui-float-label" style="margin-top: 30px;">
+			        		<p:inputText id="cedula" value="#{cu.user.cedula}"/>        			
+			        		<p:outputLabel for="@previous" value="Cedula Usuario"/>
+				        </h:panelGroup> 
+				        <h:panelGroup class="ui-float-label" style="margin-top: 30px;">
+			        		<p:inputText id="mail" value="#{cu.user.correo}"/>        			
+			        		<p:outputLabel for="@previous" value="Mail Usuario"/>
+				        </h:panelGroup> 	
+				        
+				         <h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+			        		<p:password  id="pass" value="#{cu.password}"/>        			
+			        		<p:outputLabel for="@previous" value="Contraseña Usuario"/>
+				        </h:panelGroup>	
+				        
+				        <h:panelGroup class="ui-float-label" rendered="#{cu.tipoU == 'Funcionario'}" style="margin-top: 30px;">
+			        		<p:inputText id="organismo" value="#{cu.organismo}"/>        			
+			        		<p:outputLabel for="@previous" value="Organismo funcionario"/>
+				        </h:panelGroup> 
+				        	
+				         <h:panelGroup class="ui-float-label" rendered="#{cu.tipoU == 'Funcionario'}" style="margin-top: 30px">
+			        		<p:inputText id="cargo" value="#{cu.cargo}"/>        			
+			        		<p:outputLabel for="@previous" value="Cargo en el organismo del Funcionario"/>
+				        </h:panelGroup> 
+				        	       
+				       
+				        <h:panelGroup class="ui-float-label" style="margin-top: 30px">
+					        <p:selectOneMenu id="tipoUser" value="#{cu.tipoU}">
+			                    <p:ajax update="@form, psearch" process="@this"/>		                    
+			                    <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+			                    <f:selectItem itemLabel="Autoridad" itemValue="Autoridad"/>
+			                    <f:selectItem itemLabel="Funcionario" itemValue="Funcionario"/>  
+			                    <f:selectItem itemLabel="Ciudadano" itemValue="Ciudadano"/>		                                 
+			                </p:selectOneMenu> 	
+				         </h:panelGroup>
+				                
+				       	<p:commandButton update="@form, psearch" actionListener="#{cu.toggleRenderSearch()}" icon="pi pi-angle-left" styleClass="rounded-button" style="margin-top: 20px"/>					
+				       	<p:commandButton value="Eliminar" update="@form, psearch, msgs, pgu3" actionListener="#{cu.borrarUserSearch()}" icon="pi pi-trash" styleClass="rounded-button" style="margin-top: 20px; margin-left: 20px"/>
+				        <p:commandButton value="Modificar" update="@form, psearch, msgs, pgu3" actionListener="#{cu.modificarUsuario()}" icon="pi pi-check" styleClass="rounded-button" style="margin-top: 20px; margin-left: 20px"/>
+				       					
+					</p:panel>
+				</h:form>
+			</h:panelGroup>		
+			    
+			<h:panelGroup id="plist">
+				<p:panel id="pgu3" header="Lista de usuarios" rendered="#{cu.renderList}" style="width: 50%; border-spacing: 2px; padding: 1.5em 2rem; margin-top: 2px;">		 	
+					<h:form>
+						<h2>Usuarios</h2>     		
+			  			<p:separator/>	
+						<p:dataTable value="#{cu.lo}" var="c" border="2" allowUnsorting="true" sortMode="single" paginator="true" rows="8" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+				       		<p:column field="cedula" filterable="false" headerText="cedula">
+				    	  	 	<h:outputText value="#{c.cedula}"/>
+				 	    	</p:column>	
+				       		<p:column field="nombreCompleto" filterable="false" headerText="nombre">
+				    	  	 	<h:outputText value="#{c.nombreCompleto}" />
+				 	    	</p:column>
+				 	    	<p:column field="correo" filterable="false" headerText="correo">
+				    	  	 	<h:outputText value="#{c.correo}" />
+				 	    	</p:column>			 	    	
+				 	    	<p:column field="rol" sortOrder="asc" filterable="false" headerText="rol">
+				    	  	 	<h:outputText value="#{c.rol}" />
+				    	  	 	<p:commandButton action="#{cu.borrarUser()}" update="@form, pgu3, msgs" style="float: right" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined">
+							    	<f:setPropertyActionListener value="#{c.cedula}" target="#{cu.delU1}"/>
+							    	<f:setPropertyActionListener value="#{c.correo}" target="#{cu.delU2}"/>
+							    	<f:setPropertyActionListener value="#{c.rol}" target="#{cu.delU3}"/>
+							    </p:commandButton>
+				 	    	</p:column>				 	    		    	
+				       </p:dataTable>
+				    </h:form> 							
+				</p:panel>
+			</h:panelGroup>		
+			<div style="clear: both"></div>					
+			
+		</p:panel>
+		
+	</h:body>
+</html>

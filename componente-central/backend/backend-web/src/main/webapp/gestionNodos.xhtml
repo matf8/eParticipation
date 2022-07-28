@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es" 
+xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+	 	<title>e-Participation.UY - Gestión de nodos Periféricos</title>	
+	 	<h:head>
+	 		<f:event type="preRenderView" listener="#{cp.verificarSesion()}"/>		 			
+	 	 	<link rel="stylesheet" type="text/css" href="resources/css/style.css" />	 		  
+		</h:head> 	
+	</h:head>		
+	<h:body styleClass="imgBack">
+		  
+   		<p:messages id="msgs" closable="true"/>				
+	   	<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 4500)" />
+	    
+	    <p:panel style="height: auto; width: auto">	
+	    
+	    <p:tabView id="tv1" dynamic="true" activeIndex="#{cgp.tab}" cache="true" style="width: 100%; padding: 0.5em 2rem">
+        	<p:tab id="tab1" title="Nodo Evaluador">	
+        	
+        		<p:tabView id="tv2" dynamic="true" activeIndex="#{cgp.tab2}" cache="true" style="width: 100%; padding: 0.5em 2rem">       		 	        	   
+		        	<p:tab id="tab_i1" title="Gestión usuarios">
+						<p:panel id="pge1" header="Visor de Evaluadores" style="width: 60%; padding: 0.5em 2rem; float: left">	
+							<h:form id="frmGP">				 	
+								 <p:commandButton action="#{cgp.redirectIndex()}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-fw pi-arrow-left"/>								
+								 <p:commandButton style="float: right" update="@form, tv1" actionListener="#{cgp.toggleRenderAltaEv()}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-plus-circle" />				
+								 <p:commandButton style="float: right; margin-top: 45px; margin-right: -38px" update="@form, tv1" actionListener="#{cgp.toggleRenderSearchE()}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-search" />							
+							</h:form>
+							<h:panelGroup id="plistEv">
+								<p:panel id="pgu3" style="width: 80%; border-spacing: 2px; padding: 0.5em 2rem;">	
+									<h:form>						
+										<p:separator/>											  			
+										<p:dataTable value="#{cgp.evaluadores}" var="c" border="2" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+								       		<p:column headerText="id">
+								    	  	 	<h:outputText value="#{c.id}" />
+								 	    	</p:column>						       		
+								 	    	<p:column headerText="nombre">
+								    	  	 	<h:outputText value="#{c.nombre}" />
+								    	  	 	<p:commandButton action="#{cgp.borrarEvaluador()}" update="@form, tv1, msgs" style="float: right" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined">
+								    	  	 		<f:setPropertyActionListener value="#{c.nombre}" target="#{cgp.ev}"/>
+								    	  	 	</p:commandButton>
+								 	    	</p:column>							 	    	 		    	
+								       </p:dataTable>
+							       </h:form> 					 					       							
+								</p:panel>						
+							 </h:panelGroup>						 
+					   </p:panel>	
+				   		
+					   <h:panelGroup id="pAddEv">																	
+							<p:panel id="pge2" header="Agregar evaluador" rendered="#{cgp.renderAddEv}" style="width: 25%; padding: 0.1em 1rem; float: left;">		 	
+								<h:form>													
+									<h:panelGroup class="ui-float-label" style="margin-top: 0px;">
+						        		<p:inputText id="nombre" value="#{cgp.ev}"/>        			
+						        		<p:outputLabel for="@previous" value="Nombre Evaluador"/>
+							        </h:panelGroup> 
+							        	
+							        <h:panelGroup class="ui-float-label" style="margin-top: 20px; height: 105px; width: 190px;">
+						        		 <span style="margin-bottom: 10px"> Nodos disponibles </span>
+						        		 <p:selectOneMenu id="nodos" value="#{cgp.nodoSeleccionado}">
+									        <f:selectItems value="#{cgp.nodoUrisEvaluador}" />
+									        <f:ajax event="change" render="@form"/>							        
+										 </p:selectOneMenu>								 			        		
+						        	</h:panelGroup>									        								       
+							     			        			        
+							        <p:commandButton value="Crear" update="@form, tv1, msgs" actionListener="#{cgp.agregarEvaluador()}" icon="pi pi-fw pi-plus" style="margin-top: 10px"/>
+							 	</h:form>					 	
+							</p:panel>	
+					   </h:panelGroup>	
+					
+				       <h:panelGroup id="pSEv">					
+					       <p:panel id="pge3" header="Datos del evaluador" rendered="#{cgp.renderSearchEv}" style="width: 18%; padding: 0.5em 2rem; float: left">		 	
+					 	       <h:form>
+						 	 	   <h:panelGroup class="ui-float-label" rendered="#{cgp.evaluador.id != null}" style="margin-top: 10px;">
+						        		<p:inputText id="id" value="#{cgp.evaluador.id}"/>        			
+						        		<p:outputLabel for="@previous" value="Id Evaluador"/>
+							       </h:panelGroup> 
+								
+								   <h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+						        		<p:inputText id="nombre" value="#{cgp.evaluador.nombre}"/>        			
+						        		<p:outputLabel for="@previous" value="Nombre Evaluador"/>
+							       </h:panelGroup> 									       
+							     			        			        
+							       <p:commandButton value="Buscar" update="@form, tv1" actionListener="#{cgp.buscarEvaluador()}" icon="pi pi-fw pi-plus" style="margin-top: 10px"/>
+							   </h:form>	
+						   </p:panel>
+					  </h:panelGroup>	
+				  </p:tab>
+				  
+				  <p:tab id="tab_i2" title="Gestión nodos">
+				   	 <p:panel id="pge_i1" header="Visor de Nodos Disponibles" style="width: 60%; padding: 0.5em 2rem; float: left">	
+							<h:form>				 	
+								 <p:commandButton action="#{cgp.redirectIndex()}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-fw pi-arrow-left"/>													 
+								 <p:commandButton style="float: right" update="@form, tv1" actionListener="#{cgp.toggleRenderAddNE()}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-plus-circle" />				
+							</h:form>
+							<h:panelGroup id="plistN">
+								<p:panel id="pgu3_i" style="width: 80%; border-spacing: 2px; padding: 0.5em 2rem;">	
+									<h:form>						
+										<p:separator/>											  			
+										<p:dataTable value="#{cgp.nodoUrisEvaluador}" var="c" border="2" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+								 	    	<p:column headerText="URI">
+								    	  	 	<h:outputText value="#{c}" />
+								    	  	 	<p:commandButton action="#{cgp.borrarNodoEvaluador()}" update="@form, tv1, msgs" style="float: right" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined">
+								    	  	 		<f:setPropertyActionListener value="#{c}" target="#{cgp.NEL}"/>
+								    	  	 	</p:commandButton>
+								 	    	</p:column>							 	    	 		    	
+								       </p:dataTable>
+							       </h:form> 					 					       							
+								</p:panel>						
+							 </h:panelGroup>						 
+					   </p:panel>	
+					   
+					   <h:panelGroup id="pAddN">																	
+							<p:panel id="pge_i2" header="Agregar nodo" rendered="#{cgp.renderAddNE}" style="width: 25%; padding: 0.1em 1rem; float: left;">		 	
+								<h:form>													
+									<h:panelGroup class="ui-float-label" style="margin-top: 0px;">
+						        		<p:inputText id="uri" value="#{cgp.NADD}"/>        			
+						        		<p:outputLabel for="@previous" value="URI Evaluador"/>
+							        </h:panelGroup>       
+							        							        
+							        <p:commandButton value="Crear" update="@form, tv1, msgs" actionListener="#{cgp.agregarNodoEvaluador()}" icon="pi pi-fw pi-plus" style="margin-top: 10px"/>
+							 	</h:form>					 	
+							</p:panel>	
+					   </h:panelGroup>	
+					
+				  </p:tab>
+			 </p:tabView>
+		</p:tab>
+		
+		<p:tab id="tab2" title="Nodo Organización">
+		
+			<p:tabView id="tv3" dynamic="true" activeIndex="#{cgp.tab3}" cache="true" style="width: 100%; padding: 0.5em 2rem">       		 	        	   
+		        	<p:tab id="tab_i3" title="Gestión usuarios">												
+						<p:panel id="pgi2" header="Visor de Organizaciones" style="width: 70%; padding: 0.5em 2rem; float: left;">						
+							<h:form>							
+								<p:commandButton action="#{cgp.redirectIndex()}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-fw pi-arrow-left"/>					
+								<p:commandButton action="#{cgp.refreshList()}" update="tv1" style="margin-left: 20px" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-fw pi-refresh"/>					
+								<p:commandButton style="float: right" update="tv1" actionListener="#{cgp.toggleRenderAltaO()}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-plus-circle" />				
+								<p:commandButton style="float: right; margin-top: 45px; margin-right: -38px" update="tv1" actionListener="#{cgp.toggleRenderSearchO()}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-search" />							
+						    </h:form>								
+						    <h:panelGroup id="plist2">
+								<p:panel id="pgo4" style="width: 80%; border-spacing: 2px; padding: 0.5em 2rem">		 	
+						  			<h:form>						  			
+							  			<p:separator/>	
+										<p:dataTable value="#{cgp.organizaciones}" var="c" border="2" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+								       		<p:column headerText="correo">
+								    	  	 	<h:outputText value="#{c.correo}" />
+								 	    	</p:column>						       		
+								 	    	<p:column headerText="nombre">
+								    	  	 	<h:outputText value="#{c.nombreCompleto}" />						    	  	 	
+								 	    	</p:column>			 	    	
+								 	    	<p:column headerText="iniciativas creadas">
+								    	  	 	<h:outputText value="#{c.iniciativaCreada}" />
+								    	  	 	<p:commandButton action="#{cgp.borrarOrganizacion()}" update="@form, tv1, msgs"  style="float: right" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined">
+								    	  	 		<f:setPropertyActionListener value="#{c.correo}" target="#{cgp.org}"/>
+								    	  	 	</p:commandButton>
+								 	    	</p:column>			 	    		    	
+								       </p:dataTable> 
+								  </h:form>								       							
+								</p:panel>
+							</h:panelGroup>
+					   </p:panel>	
+		
+					   <h:panelGroup id="pgCrearOg">			
+						    <p:panel id="pgo2" header="Agregar una organizacion" rendered="#{cgp.renderAddO}" style="width: 25%; padding: 0.5em 2rem; float: left">		 	
+							    <h:form>					
+									<h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+						        		<p:inputText id="nombre" value="#{cgp.organizacion.nombreCompleto}"/>        			
+						        		<p:outputLabel for="@previous" value="Nombre Organizacion"/>
+							        </h:panelGroup> 									       
+							     			        	
+							     	<h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+						        		<p:inputText id="correo" value="#{cgp.organizacion.correo}"/>        			
+						        		<p:outputLabel for="@previous" value="Correo Organizacion"/>
+							        </h:panelGroup> 
+							        
+							        <h:panelGroup class="ui-float-label" style="margin-top: 20px; height: 105px; width: 190px;">
+						        		 <span style="margin-bottom: 10px"> Nodos disponibles </span>
+						        		 <p:selectOneMenu id="nodos" value="#{cgp.nodoSeleccionado}">
+									        <f:selectItems value="#{cgp.nodoUrisOrganizacion}" />
+									        <f:ajax event="change" render="@form"/>							        
+										 </p:selectOneMenu>								 			        		
+						        	</h:panelGroup>			        	
+							     			        			        
+							        <p:commandButton value="Crear" update="@form, tv1, msgs" actionListener="#{cgp.agregarOrganizacion()}" icon="pi pi-fw pi-plus" style="margin-top: 10px"/>
+							    </h:form>			  								
+						   </p:panel>
+					   </h:panelGroup>
+							
+					   <h:panelGroup id="pgBuscarO">			
+					   	  <p:panel id="pgo3" header="Datos de la organizacion" rendered="#{cgp.renderSearchO}" style="width: 18%; padding: 0.5em 2rem; float: left">		 	
+							  <h:form>				
+									<h:panelGroup class="ui-float-label" rendered="#{cgp.organizacion.cedula != null}" style="margin-top: 10px;">
+						        		<p:inputText id="cedula" value="#{cgp.organizacion.cedula}"/>        			
+						        		<p:outputLabel for="@previous" value="Cedula Organizacion"/>
+							        </h:panelGroup> 
+								
+									<h:panelGroup class="ui-float-label" rendered="#{cgp.organizacion.nombreCompleto != null}" style="margin-top: 10px;">
+						        		<p:inputText id="nombre" value="#{cgp.organizacion.nombreCompleto}"/>        			
+						        		<p:outputLabel for="@previous" value="Nombre Organizacion"/>
+							        </h:panelGroup> 									       
+							     			        	
+							     	<h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+						        		<p:inputText id="correo" value="#{cgp.organizacion.correo}"/>        			
+						        		<p:outputLabel for="@previous" value="Correo Organizacion"/>
+							        </h:panelGroup> 	
+							        
+							        <h:panelGroup class="ui-float-label" rendered="#{cgp.organizacion.iniciativaCreada != null}" style="margin-top: 10px;">
+						        		<p:inputText id="iniCreadas" value="#{cgp.organizacion.iniciativaCreada}"/>        			
+						        		<p:outputLabel for="@previous" value="Correo Organizacion"/>
+							        </h:panelGroup> 							       
+							        <p:commandButton value="Buscar" update="@form, tv1" actionListener="#{cgp.buscarOrganizacion()}" icon="pi pi-fw pi-plus" style="margin-top: 10px"/>
+							  </h:form>      
+							</p:panel>
+					    </h:panelGroup>
+				 </p:tab>
+				 
+				  <p:tab id="tab_io2" title="Gestión nodos">
+				   	 <p:panel id="pge_io1" header="Visor de Nodos Disponibles" style="width: 60%; padding: 0.5em 2rem; float: left">	
+							<h:form>				 	
+								 <p:commandButton action="#{cgp.redirectIndex()}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-fw pi-arrow-left"/>					
+								 <p:commandButton style="float: right" update="@form, tv1" actionListener="#{cgp.toggleRenderAddNO()}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button ui-button-warning mr-2 mb-2" icon="pi pi-plus-circle" />				
+							</h:form>
+							<h:panelGroup id="plistN">
+								<p:panel id="pgu3_io" style="width: 80%; border-spacing: 2px; padding: 0.5em 2rem;">	
+									<h:form>						
+										<p:separator/>											  			
+										<p:dataTable value="#{cgp.nodoUrisOrganizacion}" var="c" border="2" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+								 	    	<p:column headerText="URI">
+								    	  	 	<h:outputText value="#{c}" />
+								    	  	 	<p:commandButton action="#{cgp.borrarNodoOrganizacion()}" update="@form, tv1, msgs" style="float: right" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined">
+								    	  	 		<f:setPropertyActionListener value="#{c}" target="#{cgp.NOEL}"/>
+								    	  	 	</p:commandButton>
+								 	    	</p:column>							 	    	 		    	
+								       </p:dataTable>
+							       </h:form> 					 					       							
+								</p:panel>						
+							 </h:panelGroup>						 
+					   </p:panel>	
+					   
+					   <h:panelGroup id="pAddNO">																	
+							<p:panel id="pge_io2" header="Agregar nodo" rendered="#{cgp.renderAddNO}" style="width: 25%; padding: 0.1em 1rem; float: left;">		 	
+								<h:form>													
+									<h:panelGroup class="ui-float-label" style="margin-top: 0px;">
+						        		<p:inputText id="uri" value="#{cgp.NOADD}"/>        			
+						        		<p:outputLabel for="@previous" value="URI Organizador"/>
+							        </h:panelGroup> 									       
+							     			        			        
+							        <p:commandButton value="Crear" update="@form, tv1, msgs" actionListener="#{cgp.agregarNodoOrganizacion()}" icon="pi pi-fw pi-plus" style="margin-top: 10px"/>
+							 	</h:form>					 	
+							</p:panel>	
+					   </h:panelGroup>						
+				  </p:tab>
+			 </p:tabView>
+		 </p:tab>				 
+	  </p:tabView>		  	  	
+	  <div style="clear: both"></div>		  	
+	  </p:panel>	
+	</h:body>
+</html>

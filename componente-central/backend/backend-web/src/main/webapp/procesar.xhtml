@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" 
+xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+	 	<title>e-Participation.UY - Procesar iniciativas</title>	
+	 	<h:head>
+	 		<f:event type="preRenderView" listener="#{cp.verificarSesion()}"/>	
+	 		<f:event type="preRenderView" listener="#{cpr.refreshList()}"/>			 			
+	 		<link rel="stylesheet" type="text/css" href="resources/css/style.css" />	 		  
+		</h:head> 	
+	</h:head>		
+	<h:body styleClass="imgBack">		
+		<p:messages id="msgs" closable="true"/>				
+	    <p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 4500)" />			
+		<p:panel style="height: auto; width: auto">		
+			<h:form id="frmProcesar">			
+				<p:panel id="pp1" header="Visor de iniciativas" style="width: 75%; padding: 0.5em 2rem; float: left">			 			
+			 		<h:panelGroup id="plist">
+						<p:panel id="pgu3" header="Lista de iniciativas" style="width: 80%; border-spacing: 2px; padding: 0.5em 2rem">		 	
+							<p:dataTable value="#{cpr.iniciativas}" var="c" border="2" paginator="true" rows="10" allowUnsorting="true" sortMode="single" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					       		<p:column field="nombre" filterable="false" headerText="nombre">
+					    	  	 	<h:outputText value="#{c.nombre}" />					    	  	 	
+					 	    	</p:column>						       		
+					 	    	<p:column field="fecha" filterable="false" headerText="fecha">
+					    	  	 	<h:outputText value="#{c.fecha}" />
+					 	    	</p:column>			    	
+					 	    	<p:column field="creador" filterable="false" headerText="creador">
+					    	  	 	<h:outputText value="#{c.creador}" />
+					 	    	</p:column>		
+					 	    	<p:column field="estado" filterable="false" headerText="estado">
+					    	  	 	<h:outputText value="#{c.estado}" />
+					    	  	 	<p:commandButton action="#{cpr.procesarIniciativa()}" rendered="#{c.estado != 'Publicado'}" style="float: right" value="Evaluar" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only rounded-button mr-2 mb-2" icon="pi pi-arrow-circle-right">
+					    	  	 		<f:setPropertyActionListener value="#{c.nombre}" target="#{cpr.iniciativaEv}"/>
+					    	  	 	</p:commandButton>
+					 	    	</p:column>	 	    		    	
+					       </p:dataTable> 							
+						</p:panel>
+					</h:panelGroup>			 				
+					<p:commandButton value="Volver" action="#{cpr.redirectIndex()}" icon="pi pi-fw pi-arrow-left"/>
+					<p:commandButton value="Refresh" action="#{cpr.getLista()}" update="plist"  icon="pi pi-fw pi-refresh" style="margin-left: 15px"/>	 
+				</p:panel>
+			</h:form> 		
+			<div style="clear: both"></div>	
+		</p:panel>
+	</h:body>
+</html>

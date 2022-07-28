@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap");
+           
+#footer {
+	font-family: "Maven Pro", cursive;
+	text-align: center;
+	color: black;
+	font-size: 1.150em;	
+	position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.imgBack {
+	background-image: url(/backend-web/resources/images/fondo.jpg);	
+	background-size: cover;
+	background-position: center center;
+	background-repeat: repeat;
+	width: auto;
+    height: 600px;
+}
+
+
+#pg1 {
+	clear: both;
+	height: 100%;
+}
+
+#cont {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	clear: both;
+	margin-top: 1em;
+	padding: 2rem;	
+}
+
+p {
+	font-family: "Maven Pro", cursive;
+}
+
+h2, h3 {
+	font-family: "Maven Pro", cursive;
+}
+

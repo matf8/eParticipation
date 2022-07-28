@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" 
+xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+	 	<title>e-Participation.UY - Gestión de insignias</title>	
+	 	<h:head>
+	 		<f:event type="preRenderView" listener="#{cp.verificarSesion()}"/>	
+	 		<f:event type="preRenderView" listener="#{ci.refreshList()}"/>		
+	 	 	<link rel="stylesheet" type="text/css" href="resources/css/style.css" />	 		  
+		</h:head> 	
+	</h:head>		
+	<h:body styleClass="imgBack">
+		<p:messages id="msgs" closable="true"/>				
+	    <p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 4500)" />
+	      				
+		<p:panel style="height: auto; width: auto">		
+			<h:form id="frmVisor">			
+				<p:panel id="pgi1" header="Visor de insignias" rendered="#{cr.abm eq 'v'}" style="width: 50%; padding: 0.5em 2rem; float: left">	
+					 					 
+					 <h:panelGroup id="plist">
+						<p:panel id="pgu3" header="Lista de certificados" style="width: 80%; border-spacing: 2px; padding: 0.5em 2rem">		 	
+				  			<p:separator/>	
+							<p:dataTable value="#{ci.certificados}" var="c" border="2" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					       		<p:column headerText="nombre">
+					    	  	 	<h:outputText value="#{c.nombre}" />
+					 	    	</p:column>	
+					       		<p:column headerText="logo">
+					       			<h:graphicImage id="image" value="data:image/jpg;base64,#{c.insignia}" style="max-width: 50px; max-height: 85px; float: left" /> 						 	    	
+					    	  	 	<p:commandButton action="#{ci.borrarInsignia(c.nombre)}" update="@form, msgs" style="float: right" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-outlined"/>
+					 	    	</p:column>					 	    			 	    		    	
+					       </p:dataTable> 							
+						</p:panel>
+					</h:panelGroup>													
+					<p:commandButton value="Volver" action="#{ci.redirectIndex()}" icon="pi pi-fw pi-arrow-left"/>
+					<p:commandButton value="Refresh" action="#{ci.getImagen()}" update="plist"  icon="pi pi-fw pi-refresh" style="margin-left: 15px"/>
+				</p:panel>
+				<div style="clear: both"></div>					
+			</h:form>	
+			 
+			<h:form id="frmGestor">						
+				<p:panel id="pgi2" header="Gestor de insignias" rendered="#{cr.abm eq 'g'}" style="width: 30%; padding: 0.5em 2rem; float: left">		 	
+					<p:commandButton value="Crear" update="@form, pgCrear" icon="pi pi-fw pi-plus" actionListener="#{ci.toggleRenderCrear()}" style="margin: 2rem"/>	
+					<br/>						
+					<p:commandButton value="Volver" action="#{ci.redirectIndex()}" style="margin: 2rem" icon="pi pi-fw pi-arrow-left"/>					
+				</p:panel>				
+			</h:form>					
+	
+			<h:panelGroup id="pgCrear">	 					
+				<p:panel id="pnlInsigniaCrear" header="Crear certificados" rendered="#{cr.abm eq 'g' and ci.renderCrear}" style="height: 50%; width: 20%; padding: 0.5em 2rem; float: left">						 
+			 		<p:panelGrid id="pgridInsignia" columns="1" style="width: 40%">		
+			 			<h:form id="frmGestor3">			 						 	
+						 	<h:panelGroup class="ui-float-label" style="margin-top: 10px;">
+				        		<p:inputText id="nomberCrt" value="#{ci.nombre}"/>        			
+				        		<p:outputLabel for="@previous" value="Nombre certificado"/>
+				        	</h:panelGroup> 
+				        					        	
+				        	<h:panelGroup class="ui-float-label" style="margin-top: 25px; height: 35px; width: 190px;">
+				        		<p:inputNumber id="nivel" minValue="0" decimalPlaces="0" value="#{ci.nivel}"/>        			
+				        		<p:outputLabel for="@previous" value="Nivel de certificacion"/>
+				        	</h:panelGroup>				        	
+				        	<p:commandButton value="Insignia" update="@form, pgCrear2, msgs" actionListener="#{ci.formInsignia()}" icon="pi pi-fw pi-image" style="margin: 2rem"/>				        					        				        				        	
+				        </h:form>
+				    </p:panelGrid>
+	        	</p:panel>
+        	</h:panelGroup>	
+        	
+	        	<h:panelGroup id="pgCrear2">	 
+	        		<p:panel id="pnlInsigniaLogo" header="Insignias" rendered="#{ci.renderForm}" style="width: 25%; padding: 0.1em 1rem; float: left">						 	 	
+	        			<h:form id="frmGestor4">	        				
+	        			    <p:outputLabel value="Logo certificado"/> <br/>			        			
+			        		<p:fileUpload listener="#{fileUploadController.upload}" mode="advanced" dragDropSupport="true"
+				          		 update="msgs" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />   		
+			        						        			
+				        	<h:panelGroup class="ui-float-label" style="margin-top: 20px; height: 105px; width: 190px;">
+				        		 <span style="margin-bottom: 10px"> Categorías </span>
+				        		 <p:selectOneMenu id="tipos"  value="#{ci.tipoURL}">
+							        <f:selectItems value="#{ci.tipos}" />
+							        <f:ajax event="change" render="frmGestor4"/>							        
+								 </p:selectOneMenu>								 			        		
+				        	</h:panelGroup>					        	
+				        					        				        					        	
+				        	<h:panelGroup class="ui-float-label" style="height: 35px; width: 200px;">
+					        	 <p:inputNumber id="momento" decimalPlaces="0" placeholder="Multiplo de 10" value="#{ci.momento}"/>        			
+				        		<p:outputLabel for="@previous" value="Valor minimo certificacion"/>			        	
+					        </h:panelGroup>	
+					        <p:tooltip widgetVar="" for="momento" value="Multiplo de 10, No menor que #{ci.toolInt} ni mayor que #{ci.toolInt+10}" />			        	
+				        	
+				        	<h:panelGroup id="pgCrear3" rendered="#{ci.tipoURL eq 'Crear'}" class="ui-float-label" style="margin-top: 20px;">
+				        		<p:inputText id="user" value="#{ci.nombreTipo}" required="true"/>        			
+				        		<p:outputLabel for="@previous" value="Nombre categoría insignia"/>
+				        		<p:commandButton update="frmGestor4, @this" action="#{ci.crearTipo()}" icon="pi pi-plus" style="margin-left: 0.75em"/>				        					        				        				        		
+					        </h:panelGroup>					        
+					        <p:commandButton value="Crear" update="frmGestor4, pgCrear2, pgCrear3, pgCrear, msgs" action="#{ci.altaCertificado()}" icon="pi pi-fw pi-check" style="margin: 2rem"/>				        					        				        				        	
+					        
+				   	    </h:form>				      			        	
+	        		</p:panel>
+	        	</h:panelGroup>	
+			<div style="clear: both"></div>					
+		</p:panel>	
+	
+	</h:body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" 
+xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+	 	<title>e-Participation.UY - Perfil</title>	
+	 	<h:head>
+	 		<f:event type="preRenderView" listener="#{cp.verificarSesion()}"/>		
+	 		<link rel="stylesheet" type="text/css" href="resources/css/style.css" />	 		  
+		</h:head> 	
+	</h:head>		
+	<h:body styleClass="imgBack">	
+		<p:messages id="msgs" closable="true"/>				
+	    <p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 4500)" />	
+	    
+		<p:panel style="height: auto; width: auto">				
+			<h:form id="fPerfil">		
+				 <p:panel id="pnlPerfilAdm1" header="Perfil backoffice - Administrador" rendered="#{cl.perfil eq 'adm'}" style="width: 30%; padding: 0.5em 2rem; float: left">					
+					 <p:commandButton style="margin: 2rem" value="Modificar contraseña" update="pgPass" actionListener="#{cp.toggleRenderPass()}" icon="pi pi-fw pi-user-edit"/>		
+					 <br/>			  
+		 			 <p:commandButton style="margin: 2rem" value="Volver" action="#{cp.redirectIndex()}" icon="pi pi-fw pi-arrow-left"/>				  	 
+				 </p:panel>				 
+				 
+				 <p:panel id="pnlPerfilAut" header="Perfil backoffice - Autoridad" rendered="#{cl.perfil eq 'aut'}" style="width: 30%; padding: 0.5em 2rem; float: left">					
+					 <p:commandButton style="margin: 2rem" value="Modificar contraseña" update="pgPass" actionListener="#{cp.toggleRenderPass()}" icon="pi pi-fw pi-user-edit"/>		
+					 <br/>			  
+		 			 <p:commandButton style="margin: 2rem" value="Volver" action="#{cp.redirectIndex()}" icon="pi pi-fw pi-arrow-left"/>	
+				 </p:panel>		 				 
+			</h:form>		
+				
+			<h:panelGroup id="pgPass">	 	
+			 	 <p:panel id="pnlPerfilAdm3" header="Modificar contrseña" rendered="#{cp.renderPass}" style="width: 25%; padding: 0.1em 1rem; float: left">						  
+					  <h:form id="fPassAdm"> 
+					  <p:panelGrid id="pgridAdmPass" columns="1" style="width: 35%">
+					 	 <h:panelGroup class="ui-float-label">
+				        	<p:password id="pass" value="#{cp.pass1}" toggleMask="true" redisplay="true" required="true" />        			
+				        	<p:outputLabel for="@previous" value="Contraseña actual"/>
+				       	 </h:panelGroup>  
+				        	
+				         <h:panelGroup class="ui-float-label">
+				         	<p:password id="passNueva" value="#{cp.pass2}" required="true" toggleMask="true" redisplay="true"/>        			
+				        	<p:outputLabel for="@previous" value="Nueva contraseña"/>
+				         </h:panelGroup> 
+				        	
+			        	<h:panelGroup class="ui-float-label">
+			        		<p:password id="passConf" value="#{cp.pass3}" toggleMask="true" redisplay="true" required="true"/>        			
+			        		<p:outputLabel for="@previous" value="Confirmar"/>
+			        	</h:panelGroup> 		        			        	
+			       	 </p:panelGrid>				 
+					 <p:commandButton style="margin: 2rem" value="Modificar" update="pgPass, msgs" action="#{cp.modificarPassword()}" icon="pi pi-fw pi-pencil"/>	 
+					</h:form> 					
+			 	</p:panel>			 	
+			</h:panelGroup>	
+				
+			<div style="clear: both"></div>
+		</p:panel>
+	</h:body>
+</html>

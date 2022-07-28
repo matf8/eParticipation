@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">eParticipation</string>
+    <string name="title_login">Login</string>
+    <string name="button_login">Enter</string>
+    <string name="button_drawer_home">Home</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Mauricio</string>
+    <string name="nav_header_subtitle">Ciudadano</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="espacios_cercanos">Espacios cercanos</string>
+    <string name="grupo">Grupo 18</string>
+    <string name="iniciativa_activity">Espacio</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_second">Programa de participacion ciudadana</string>
+    <string name="imagen_espacios">Imagen espacios</string>
+    <string name="espacios_text_second">Espacios</string>
+    <string name="imagen_perfil_second">Imagen perfil</string>
+    <string name="imagen_certificado_second">Imagen certificado</string>
+    <string name="perfil_text_second">Perfil</string>
+    <string name="certificado_text_second">Certificado</string>
+    <string name="imagen_platform_second">Imagen platform</string>
+    <string name="title_secondActivity">eParticipation</string>
+    <string name="title_activity_certificado_select">CertificadoSelectActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>
