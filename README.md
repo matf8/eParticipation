@@ -1,8 +1,8 @@
 ## Información
 #### Grupo 18 - Taller de Sistemas de Información Java EE
-  - Manuel Biurrun - 5.346.301-7
-  - Mathias Fernández - 5.026.656-7
-  - Mauricio Iglesias - 5.521.370-3
+  - Manuel Biurrun
+  - Mathias Fernández
+  - Mauricio Iglesias 
   - https://gitlab.fing.edu.uy/mathias.fernandez.bo/eParticipation.uy
 ---
 
